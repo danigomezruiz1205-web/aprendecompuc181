@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aprende Compu | Guía Práctica para la Prepa</title>
-    <!-- Tailwind CSS desde CDN -->
+    <title>Computación Básica para Prepa | Guía Interactiva</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter + Outfit para un toque fresco y juvenil -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        heading: ['Outfit', 'sans-serif'],
                     },
                     colors: {
                         brand: {
-                            word: '#2b579a',
-                            excel: '#217346',
-                            ppt: '#d24726',
-                            security: '#6b21a8'
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
                         }
                     }
                 }
@@ -31,830 +33,883 @@
         }
     </script>
     <style>
-        .active-tab {
-            border-bottom: 3px solid #3b82f6;
-            color: #1d4ed8;
-            font-weight: 700;
-        }
-        .shortcut-key {
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            box-shadow: 0 2px 0 #94a3b8;
-            border-radius: 4px;
-            padding: 2px 6px;
-            font-family: monospace;
-            font-weight: bold;
-            font-size: 0.85em;
-            color: #334155;
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .tab-btn.active {
+            background-color: #0284c7;
+            color: #ffffff;
+            border-color: #0284c7;
+            box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.3);
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
 
-    <!-- Encabezado / Navegación principal -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('inicio')">
-                <div class="bg-blue-600 text-white font-heading font-extrabold text-xl p-2 rounded-xl shadow-md tracking-wider">
-                    PC101
+    <!-- Header Navigation Bar -->
+    <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('word')">
+                    <div class="bg-sky-500 p-2 rounded-xl text-white">
+                        <i class="fa-solid fa-laptop-code text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-lg sm:text-xl tracking-tight text-white block leading-none">CompuPrepa</span>
+                        <span class="text-xs text-sky-400 font-medium">Guía Definitiva de Computación</span>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="font-heading font-bold text-lg leading-none text-slate-900">Compu para la Prepa</h1>
-                    <p class="text-xs text-slate-500 font-medium">Guía práctica sin rodeos</p>
+                <div class="hidden md:flex items-center space-x-3 text-xs sm:text-sm font-medium">
+                    <button onclick="switchTab('quiz')" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-4 py-2 rounded-lg transition-all shadow-sm hover:shadow flex items-center gap-2">
+                        <i class="fa-solid fa-square-check text-base"></i>
+                        <span>Quiz Final</span>
+                    </button>
+                    <button onclick="switchTab('atajos')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition-all flex items-center gap-2 border border-slate-700">
+                        <i class="fa-solid fa-keyboard text-sky-400"></i>
+                        <span>Atajos</span>
+                    </button>
                 </div>
             </div>
-
-            <!-- Menú Navegación -->
-            <nav class="flex items-center gap-1 sm:gap-2 overflow-x-auto pb-1 sm:pb-0 w-full sm:w-auto">
-                <button onclick="switchTab('word')" id="nav-word" class="tab-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition">
-                    <span class="w-3 h-3 rounded-full bg-blue-700"></span> Word
-                </button>
-                <button onclick="switchTab('excel')" id="nav-excel" class="tab-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition">
-                    <span class="w-3 h-3 rounded-full bg-emerald-600"></span> Excel
-                </button>
-                <button onclick="switchTab('ppt')" id="nav-ppt" class="tab-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition">
-                    <span class="w-3 h-3 rounded-full bg-orange-600"></span> PowerPoint
-                </button>
-                <button onclick="switchTab('seguridad')" id="nav-seguridad" class="tab-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition">
-                    <span class="w-3 h-3 rounded-full bg-purple-600"></span> Internet
-                </button>
-                <button onclick="switchTab('soporte')" id="nav-soporte" class="tab-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition">
-                    🛠️ Soporte
-                </button>
-                <button onclick="switchTab('recursos')" id="nav-recursos" class="tab-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition">
-                    📦 Recursos
-                </button>
-                <button onclick="switchTab('faq')" id="nav-faq" class="tab-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition">
-                    ❓ FAQ
-                </button>
-                <button onclick="switchTab('practica')" id="nav-practica" class="tab-btn px-3 py-2 rounded-lg text-sm font-bold bg-amber-100 text-amber-900 hover:bg-amber-200 ml-auto sm:ml-2 transition">
-                    ⚡ Ponte a Prueba
-                </button>
-            </nav>
         </div>
+
+        <!-- Scrollable Module Navigation Tabs -->
+        <nav class="bg-slate-800 border-t border-slate-700/60 px-2 sm:px-4">
+            <div class="max-w-7xl mx-auto flex space-x-1 sm:space-x-2 overflow-x-auto py-2 no-scrollbar text-xs sm:text-sm font-medium">
+                <button onclick="switchTab('word')" id="btn-word" class="tab-btn active shrink-0 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition flex items-center gap-2 border border-transparent">
+                    <i class="fa-regular fa-file-word text-blue-400"></i> Word
+                </button>
+                <button onclick="switchTab('excel')" id="btn-excel" class="tab-btn shrink-0 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition flex items-center gap-2 border border-transparent">
+                    <i class="fa-regular fa-file-excel text-emerald-400"></i> Excel
+                </button>
+                <button onclick="switchTab('powerpoint')" id="btn-powerpoint" class="tab-btn shrink-0 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition flex items-center gap-2 border border-transparent">
+                    <i class="fa-regular fa-file-powerpoint text-orange-400"></i> PowerPoint
+                </button>
+                <button onclick="switchTab('seguridad')" id="btn-seguridad" class="tab-btn shrink-0 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition flex items-center gap-2 border border-transparent">
+                    <i class="fa-solid fa-shield-halved text-rose-400"></i> Seguridad & Web
+                </button>
+                <button onclick="switchTab('nube')" id="btn-nube" class="tab-btn shrink-0 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition flex items-center gap-2 border border-transparent">
+                    <i class="fa-solid fa-cloud text-indigo-400"></i> Nube & Trabajo
+                </button>
+                <button onclick="switchTab('soporte')" id="btn-soporte" class="tab-btn shrink-0 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition flex items-center gap-2 border border-transparent">
+                    <i class="fa-solid fa-wrench text-amber-400"></i> Soporte Técnico
+                </button>
+                <button onclick="switchTab('atajos')" id="btn-atajos" class="tab-btn shrink-0 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition flex items-center gap-2 border border-transparent">
+                    <i class="fa-solid fa-bolt text-yellow-400"></i> Atajos
+                </button>
+                <button onclick="switchTab('recursos')" id="btn-recursos" class="tab-btn shrink-0 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition flex items-center gap-2 border border-transparent">
+                    <i class="fa-solid fa-cubes text-teal-400"></i> Recursos
+                </button>
+                <button onclick="switchTab('faq')" id="btn-faq" class="tab-btn shrink-0 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition flex items-center gap-2 border border-transparent">
+                    <i class="fa-solid fa-circle-question text-purple-400"></i> FAQ
+                </button>
+                <button onclick="switchTab('quiz')" id="btn-quiz" class="tab-btn shrink-0 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition flex items-center gap-2 border border-transparent">
+                    <i class="fa-solid fa-graduation-cap text-amber-400"></i> Quiz Ampliado
+                </button>
+            </div>
+        </nav>
     </header>
 
-    <!-- Contenido Principal -->
-    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full">
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
 
-        <!-- VISTA: INICIO -->
-        <section id="view-inicio" class="view-content space-y-8">
-            <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-3xl p-6 md:p-10 shadow-lg relative overflow-hidden">
-                <div class="max-w-2xl relative z-10">
-                    <span class="bg-blue-500/40 text-blue-100 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Guía de supervivencia escolar</span>
-                    <h2 class="font-heading text-3xl sm:text-4xl font-extrabold mb-4 leading-tight">Sálvate en los trabajos de la prepa aprendiendo lo que de verdad usas.</h2>
-                    <p class="text-blue-100 text-base mb-6 leading-relaxed">
-                        Aquí no te enseñamos teoría aburrida del año 2000. Vas a aprender a dar formato a un ensayo APA en Word, armar tablas con formulas reales en Excel, hacer diapositivas geniales sin aburrir y no caer en estafas o virus.
-                    </p>
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="switchTab('word')" class="bg-white text-blue-700 font-bold px-5 py-2.5 rounded-xl hover:bg-blue-50 transition shadow-sm">Empezar con Word</button>
-                        <button onclick="switchTab('practica')" class="bg-blue-800/60 hover:bg-blue-800/80 text-white font-semibold px-5 py-2.5 rounded-xl border border-blue-400/30 transition">Probar lo que sabes</button>
+        <!-- MODULE 1: WORD -->
+        <section id="tab-word" class="tab-content block space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Microsoft Word y Formato de Documentos</h1>
+                        <p class="text-slate-600 text-sm sm:text-base">Aprende a estructurar proyectos académicos con calidad profesional y sin dolores de cabeza.</p>
                     </div>
                 </div>
-            </div>
 
-            <!-- Atajos rápidos destacados -->
-            <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-                <h3 class="font-heading font-bold text-xl text-slate-900 mb-4 flex items-center gap-2">
-                    <span>🔥</span> Atajos de teclado que te ahorran horas
-                </h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
-                        <p class="text-xs text-slate-500 font-semibold uppercase">Copiar y Pegar</p>
-                        <p class="mt-1"><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">C</span> / <span class="shortcut-key">V</span></p>
-                        <span class="text-xs text-slate-600">Básico para mover texto.</span>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Apa Rules Card -->
+                    <div class="bg-blue-50/60 rounded-xl p-5 border border-blue-100 space-y-3">
+                        <h2 class="text-lg font-bold text-blue-900 flex items-center gap-2">
+                            <i class="fa-solid fa-book-bookmark text-blue-600"></i> Normas APA 7.ª Edición (Lo Esencial)
+                        </h2>
+                        <p class="text-xs text-slate-600">Las reglas que todos los profesores de prepa te van a pedir para ensayos y reportes:</p>
+                        <ul class="text-xs sm:text-sm text-slate-700 space-y-2">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> <span><strong>Márgenes:</strong> 2.54 cm (1 pulgada) por todos los lados.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> <span><strong>Tipografía:</strong> Times New Roman 12pt, Arial 11pt o Calibri 11pt.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> <span><strong>Interlineado:</strong> 2.0 (Doble espacio) en todo el documento, sin espacio entre párrafos.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> <span><strong>Alineación:</strong> Izquierda (no justificado para APA estricto, aunque algunos profes piden justificado).</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> <span><strong>Sangría:</strong> En la primera línea de cada párrafo (1.27 cm / Tabulador).</span></li>
+                        </ul>
                     </div>
-                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
-                        <p class="text-xs text-slate-500 font-semibold uppercase">Deshacer error</p>
-                        <p class="mt-1"><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">Z</span></p>
-                        <span class="text-xs text-slate-600">Salva vidas cuando borras algo por error.</span>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
-                        <p class="text-xs text-slate-500 font-semibold uppercase">Buscar palabras</p>
-                        <p class="mt-1"><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">B</span></p>
-                        <span class="text-xs text-slate-600">Encuentra datos en documentos largos.</span>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
-                        <p class="text-xs text-slate-500 font-semibold uppercase">Guardar rápido</p>
-                        <p class="mt-1"><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">G</span></p>
-                        <span class="text-xs text-slate-600">Guarda avances constantemente.</span>
+
+                    <!-- Index & Headings -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 space-y-3">
+                        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-list-ol text-blue-600"></i> Tablas de Contenido Automáticas
+                        </h2>
+                        <p class="text-xs sm:text-sm text-slate-600">¡Olvídate de hacer el índice a mano poniendo puntitos!</p>
+                        <ol class="text-xs sm:text-sm text-slate-700 space-y-2 list-decimal list-inside">
+                            <li>Aplica estilos a tus títulos: selecciona el texto y marca como <strong>Título 1</strong> (para temas principales) o <strong>Título 2</strong> (subtemas) en la pestaña Inicio.</li>
+                            <li>Ve al lugar donde quieras poner el índice (usualmente la página 2).</li>
+                            <li>Dirígete a <strong>Referencias > Tabla de contenido</strong> y elige el modelo automático.</li>
+                            <li>Si agregas más contenido, haz clic en <em>"Actualizar tabla"</em> y todo se reajustará solo.</li>
+                        </ol>
                     </div>
                 </div>
-            </div>
 
-            <!-- Módulos principales -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Tarjeta Word -->
-                <div onclick="switchTab('word')" class="cursor-pointer bg-white p-6 rounded-2xl border-2 border-slate-200 hover:border-blue-500 transition shadow-sm hover:shadow-md group">
-                    <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center font-bold text-xl mb-4 group-hover:scale-110 transition-transform">W</div>
-                    <h4 class="font-heading text-xl font-bold text-slate-900 mb-2">Microsoft Word</h4>
-                    <p class="text-slate-600 text-sm mb-4">Aprende a estructurar un reporte con portada, índices automáticos, salto de página y formato legible.</p>
-                    <span class="text-blue-600 font-semibold text-sm flex items-center gap-1 group-hover:translate-x-1 transition-transform">Ver lecciones &rarr;</span>
-                </div>
+                <!-- Section Breaks & Headers -->
+                <div class="mt-6 grid md:grid-cols-3 gap-4">
+                    <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-xs space-y-2">
+                        <div class="text-sky-600 font-bold text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-scissors"></i> Saltos de Sección
+                        </div>
+                        <p class="text-xs text-slate-600">Te permiten tener páginas horizontales y verticales en el mismo documento o cambiar encabezados en capítulos diferentes. Usa <strong>Disposición > Saltos > Página siguiente</strong>.</p>
+                    </div>
 
-                <!-- Tarjeta Excel -->
-                <div onclick="switchTab('excel')" class="cursor-pointer bg-white p-6 rounded-2xl border-2 border-slate-200 hover:border-emerald-500 transition shadow-sm hover:shadow-md group">
-                    <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center font-bold text-xl mb-4 group-hover:scale-110 transition-transform">X</div>
-                    <h4 class="font-heading text-xl font-bold text-slate-900 mb-2">Microsoft Excel</h4>
-                    <p class="text-slate-600 text-sm mb-4">Pierde el miedo a las celdas. Fórmulas de suma, promedios para tus calificaciones y gráficas rápidas.</p>
-                    <span class="text-emerald-600 font-semibold text-sm flex items-center gap-1 group-hover:translate-x-1 transition-transform">Ver lecciones &rarr;</span>
-                </div>
+                    <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-xs space-y-2">
+                        <div class="text-sky-600 font-bold text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-heading"></i> Encabezados y Números
+                        </div>
+                        <p class="text-xs text-slate-600">Para omitir la portada del conteo, haz doble clic en el encabezado de la página 2 y activa la opción <strong>"Primera página diferente"</strong> o desvincula la sección anterior.</p>
+                    </div>
 
-                <!-- Tarjeta PPT -->
-                <div onclick="switchTab('ppt')" class="cursor-pointer bg-white p-6 rounded-2xl border-2 border-slate-200 hover:border-orange-500 transition shadow-sm hover:shadow-md group">
-                    <div class="w-12 h-12 bg-orange-100 text-orange-700 rounded-xl flex items-center justify-center font-bold text-xl mb-4 group-hover:scale-110 transition-transform">P</div>
-                    <h4 class="font-heading text-xl font-bold text-slate-900 mb-2">PowerPoint</h4>
-                    <p class="text-slate-600 text-sm mb-4">Crea presentaciones dinámicas. Menos texto, más impacto visual, reglas de contraste y animaciones discretas.</p>
-                    <span class="text-orange-600 font-semibold text-sm flex items-center gap-1 group-hover:translate-x-1 transition-transform">Ver lecciones &rarr;</span>
-                </div>
-
-                <!-- Tarjeta Seguridad -->
-                <div onclick="switchTab('seguridad')" class="cursor-pointer bg-white p-6 rounded-2xl border-2 border-slate-200 hover:border-purple-500 transition shadow-sm hover:shadow-md group">
-                    <div class="w-12 h-12 bg-purple-100 text-purple-700 rounded-xl flex items-center justify-center font-bold text-xl mb-4 group-hover:scale-110 transition-transform">🛡️</div>
-                    <h4 class="font-heading text-xl font-bold text-slate-900 mb-2">Internet y Seguridad</h4>
-                    <p class="text-slate-600 text-sm mb-4">Cómo buscar fuentes confiables en Google, evitar phishing/virus y mantener tus contraseñas seguras.</p>
-                    <span class="text-purple-600 font-semibold text-sm flex items-center gap-1 group-hover:translate-x-1 transition-transform">Ver lecciones &rarr;</span>
+                    <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-xs space-y-2">
+                        <div class="text-sky-600 font-bold text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-asterisk"></i> Notas al Pie vs Citas
+                        </div>
+                        <p class="text-xs text-slate-600">Usa <strong>Referencias > Insertar nota al pie</strong> para aclaraciones o definiciones rápidas abajo en la misma página sin interrumpir la lectura principal.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- VISTA: WORD -->
-        <section id="view-word" class="view-content hidden space-y-6">
-            <div class="bg-blue-50 border border-blue-200 rounded-2xl p-6">
-                <div class="flex items-center gap-3">
-                    <span class="bg-blue-600 text-white font-bold text-xl px-3 py-1 rounded-lg">Word</span>
+        <!-- MODULE 2: EXCEL -->
+        <section id="tab-excel" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-table"></i>
+                    </div>
                     <div>
-                        <h2 class="font-heading text-2xl font-bold text-blue-900">Documentos Impecables para la Prepa</h2>
-                        <p class="text-blue-700 text-sm">Deja de presionar Enter 20 veces para pasar de página.</p>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Microsoft Excel y Hoja de Cálculo</h1>
+                        <p class="text-slate-600 text-sm sm:text-base">Domina celdas, fórmulas, gráficos e interpreta datos como todo un experto.</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Temario interactivo -->
-                <div class="space-y-3">
-                    <p class="font-bold text-slate-700 text-sm uppercase tracking-wider">Lecciones de Word</p>
-                    <button onclick="loadLesson('word', 1)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-blue-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-blue-500">1. Saltos de Página vs Enter</button>
-                    <button onclick="loadLesson('word', 2)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-blue-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-blue-500">2. Encabezados e Índices Automáticos</button>
-                    <button onclick="loadLesson('word', 3)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-blue-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-blue-500">3. Interlineado y Formato Limpio</button>
-                    <button onclick="loadLesson('word', 4)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-blue-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-blue-500">4. Exportar a PDF correctamente</button>
+                <!-- Formulas Quick Cards -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                    <div class="p-4 rounded-xl bg-emerald-50/50 border border-emerald-200">
+                        <div class="font-mono text-xs text-emerald-800 font-bold bg-emerald-200/60 inline-block px-2 py-0.5 rounded mb-2">=SUMA(A1:A10)</div>
+                        <h2 class="font-semibold text-sm text-slate-900">Suma Automática</h2>
+                        <p class="text-xs text-slate-600 mt-1">Suma todos los valores numéricos dentro del rango especificado en segundos.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-emerald-50/50 border border-emerald-200">
+                        <div class="font-mono text-xs text-emerald-800 font-bold bg-emerald-200/60 inline-block px-2 py-0.5 rounded mb-2">=PROMEDIO(B1:B5)</div>
+                        <h2 class="font-semibold text-sm text-slate-900">Promedio / Media</h2>
+                        <p class="text-xs text-slate-600 mt-1">Calcula la media aritmética. Ideal para obtener tus calificaciones del parcial.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-emerald-50/50 border border-emerald-200">
+                        <div class="font-mono text-xs text-emerald-800 font-bold bg-emerald-200/60 inline-block px-2 py-0.5 rounded mb-2">=CONTAR.SI(C1:C20, ">6")</div>
+                        <h2 class="font-semibold text-sm text-slate-900">Conteo Condicional</h2>
+                        <p class="text-xs text-slate-600 mt-1">Cuenta únicamente las celdas que cumplen con un criterio específico (ej. aprobados).</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-emerald-50/50 border border-emerald-200">
+                        <div class="font-mono text-xs text-emerald-800 font-bold bg-emerald-200/60 inline-block px-2 py-0.5 rounded mb-2">=SI(A1>=6, "Aprobado", "Reprobado")</div>
+                        <h2 class="font-semibold text-sm text-slate-900">Lógica Condicional</h2>
+                        <p class="text-xs text-slate-600 mt-1">Evalúa una regla y devuelve un valor distinto según si se cumple o no.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-emerald-50/50 border border-emerald-200">
+                        <div class="font-mono text-xs text-emerald-800 font-bold bg-emerald-200/60 inline-block px-2 py-0.5 rounded mb-2">=BUSCARV("Juan", A1:D10, 3, FALSO)</div>
+                        <h2 class="font-semibold text-sm text-slate-900">Búsqueda Vertical</h2>
+                        <p class="text-xs text-slate-600 mt-1">Busca un dato en la primera columna y devuelve un valor en la misma fila.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-emerald-50/50 border border-emerald-200">
+                        <div class="font-mono text-xs text-emerald-800 font-bold bg-emerald-200/60 inline-block px-2 py-0.5 rounded mb-2">Tablas Dinámicas</div>
+                        <h2 class="font-semibold text-sm text-slate-900">Resumen de Datos</h2>
+                        <p class="text-xs text-slate-600 mt-1">Permite agrupar miles de datos en 2 clics para analizar promedios o totales por categoría.</p>
+                    </div>
                 </div>
 
-                <!-- Detalle de lección -->
-                <div class="md:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm min-h-[300px]" id="word-lesson-display">
-                    <!-- Se llena con JS -->
+                <!-- Interactive Grade Simulator -->
+                <div class="bg-slate-900 text-white rounded-2xl p-6 shadow-md space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800 pb-4 gap-2">
+                        <div>
+                            <h2 class="text-lg font-bold text-emerald-400 flex items-center gap-2">
+                                <i class="fa-solid fa-calculator"></i> Simulador Interactivo de Calificaciones de Prepa
+                            </h2>
+                            <p class="text-xs text-slate-400">Prueba cómo las fórmulas de Excel evalúan si apruebas o te vas a examen extraordinario.</p>
+                        </div>
+                        <button onclick="resetGradeSim()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded transition">
+                            <i class="fa-solid fa-rotate-left"></i> Reiniciar
+                        </button>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Inputs -->
+                        <div class="space-y-3">
+                            <label class="block text-xs font-medium text-slate-300">
+                                Examen Parcial (40%): <span id="val-p1" class="text-emerald-400 font-bold">8.0</span>
+                                <input type="range" id="sim-p1" min="0" max="10" step="0.5" value="8" oninput="calcGrades()" class="w-full mt-1 accent-emerald-500">
+                            </label>
+                            <label class="block text-xs font-medium text-slate-300">
+                                Proyectos / Tareas (40%): <span id="val-p2" class="text-emerald-400 font-bold">9.0</span>
+                                <input type="range" id="sim-p2" min="0" max="10" step="0.5" value="9" oninput="calcGrades()" class="w-full mt-1 accent-emerald-500">
+                            </label>
+                            <label class="block text-xs font-medium text-slate-300">
+                                Participación / Asistencia (20%): <span id="val-p3" class="text-emerald-400 font-bold">7.0</span>
+                                <input type="range" id="sim-p3" min="0" max="10" step="0.5" value="7" oninput="calcGrades()" class="w-full mt-1 accent-emerald-500">
+                            </label>
+                        </div>
+
+                        <!-- Formula preview -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-xs space-y-2">
+                            <p class="text-slate-500 font-sans font-medium text-xs">Fórmulas simuladas en tiempo real:</p>
+                            <p class="text-slate-300"><span class="text-purple-400">PROMEDIO</span> = (<span id="txt-p1">8</span> + <span id="txt-p2">9</span> + <span id="txt-p3">7</span>) / 3 = <span id="txt-avg" class="text-amber-400">8.0</span></p>
+                            <p class="text-slate-300"><span class="text-emerald-400">PONDERADO</span> = (<span id="txt-w1">3.2</span>) + (<span id="txt-w2">3.6</span>) + (<span id="txt-w3">1.4</span>) = <span id="txt-final" class="text-emerald-300 font-bold">8.2</span></p>
+                            <div class="pt-2 border-t border-slate-800 text-slate-400">
+                                =SI(<span class="text-emerald-300">8.2</span> &gt;= 6.0, <span class="text-emerald-400">"APROBADO"</span>, <span class="text-rose-400">"REPROBADO"</span>)
+                            </div>
+                        </div>
+
+                        <!-- Result Display -->
+                        <div class="bg-slate-800 rounded-xl p-4 flex flex-col justify-center items-center text-center border border-slate-700">
+                            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Calificación Final</span>
+                            <span id="final-score" class="text-4xl font-extrabold text-emerald-400 my-1">8.2</span>
+                            <span id="status-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                ¡APROBADO!
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- VISTA: EXCEL -->
-        <section id="view-excel" class="view-content hidden space-y-6">
-            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-6">
-                <div class="flex items-center gap-3">
-                    <span class="bg-emerald-600 text-white font-bold text-xl px-3 py-1 rounded-lg">Excel</span>
+        <!-- MODULE 3: POWERPOINT -->
+        <section id="tab-powerpoint" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-display"></i>
+                    </div>
                     <div>
-                        <h2 class="font-heading text-2xl font-bold text-emerald-900">Excel Sin Miedo</h2>
-                        <p class="text-emerald-700 text-sm">Organiza datos, saca tu promedio y crea gráficas sin quebrarte la cabeza.</p>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">PowerPoint y Presentaciones Eficaces</h1>
+                        <p class="text-slate-600 text-sm sm:text-base">Aprende a exponer sin aburrir a tu grupo ni saturate de texto.</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="space-y-3">
-                    <p class="font-bold text-slate-700 text-sm uppercase tracking-wider">Lecciones de Excel</p>
-                    <button onclick="loadLesson('excel', 1)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-emerald-500">1. ¿Qué es una Celda, Fila y Columna?</button>
-                    <button onclick="loadLesson('excel', 2)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-emerald-500">2. Fórmula de Promedio y Suma</button>
-                    <button onclick="loadLesson('excel', 3)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-emerald-500">3. Gráficas sencillas en 3 clics</button>
-                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Rule 6x6 -->
+                    <div class="bg-orange-50/50 p-5 rounded-xl border border-orange-200 space-y-3">
+                        <div class="w-10 h-10 bg-orange-500 text-white rounded-lg flex items-center justify-center font-bold text-lg">6x6</div>
+                        <h2 class="font-bold text-slate-900">La Regla de Oro 6x6</h2>
+                        <p class="text-xs text-slate-600">Un error clásico de prepa es llenar la diapositiva de párrafos e ir a leerlos. Evítalo:</p>
+                        <ul class="text-xs text-slate-700 space-y-1.5 list-disc list-inside">
+                            <li>Máximo <strong>6 líneas de texto</strong> por diapositiva.</li>
+                            <li>Máximo <strong>6 palabras</strong> por línea.</li>
+                            <li>La diapositiva apoya tu explicación, no la sustituye.</li>
+                        </ul>
+                    </div>
 
-                <div class="md:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm min-h-[300px]" id="excel-lesson-display">
-                    <!-- Se llena con JS -->
+                    <!-- Typography & Contrast -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <div class="w-10 h-10 bg-slate-800 text-white rounded-lg flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-font"></i></div>
+                        <h2 class="font-bold text-slate-900">Jerarquía Visual y Contraste</h2>
+                        <p class="text-xs text-slate-600">Asegúrate de que tus diapositivas se lean perfecto desde el fondo del salón:</p>
+                        <ul class="text-xs text-slate-700 space-y-1.5 list-disc list-inside">
+                            <li><strong>Títulos:</strong> 36pt a 44pt (Negrita).</li>
+                            <li><strong>Cuerpo de texto:</strong> 20pt a 28pt.</li>
+                            <li><strong>Contraste:</strong> Fondo claro con texto oscuro, o fondo muy oscuro con letra blanca.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Animations & Export -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <div class="w-10 h-10 bg-slate-800 text-white rounded-lg flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-film"></i></div>
+                        <h2 class="font-bold text-slate-900">Transiciones y Exportación</h2>
+                        <p class="text-xs text-slate-600">El diseño moderno prioriza lo limpio sobre los efectos exagerados:</p>
+                        <ul class="text-xs text-slate-700 space-y-1.5 list-disc list-inside">
+                            <li>Usa únicamente transiciones sobrias como <em>"Transformar"</em> o <em>"Desvanecer"</em>.</li>
+                            <li>Evita efectos con sonido estridente.</li>
+                            <li>Guarda tu archivo como <strong>PDF</strong> antes de llevarlo en la USB para no perder fuentes ni formatos.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- VISTA: POWERPOINT -->
-        <section id="view-ppt" class="view-content hidden space-y-6">
-            <div class="bg-orange-50 border border-orange-200 rounded-2xl p-6">
-                <div class="flex items-center gap-3">
-                    <span class="bg-orange-600 text-white font-bold text-xl px-3 py-1 rounded-lg">PPT</span>
+        <!-- MODULE 4: SEGURIDAD Y WEB -->
+        <section id="tab-seguridad" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
                     <div>
-                        <h2 class="font-heading text-2xl font-bold text-orange-900">Exposiciones de 10</h2>
-                        <p class="text-orange-700 text-sm">Diseña diapositivas visuales que tus profesores sí quieran ver.</p>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Navegación Web Inteligente y Ciberseguridad</h1>
+                        <p class="text-slate-600 text-sm sm:text-base">Busca información relevante en segundos y protégete de estafas digitales.</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="space-y-3">
-                    <p class="font-bold text-slate-700 text-sm uppercase tracking-wider">Lecciones de PPT</p>
-                    <button onclick="loadLesson('ppt', 1)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-orange-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-orange-500">1. La regla 6x6 (Menos texto)</button>
-                    <button onclick="loadLesson('ppt', 2)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-orange-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-orange-500">2. Contraste de colores y fuentes</button>
-                    <button onclick="loadLesson('ppt', 3)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-orange-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-orange-500">3. Animaciones discretas (Sin marear)</button>
-                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Google Advanced Tricks -->
+                    <div class="space-y-4">
+                        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-magnifying-glass text-rose-500"></i> Comandos de Búsqueda Avanzada en Google
+                        </h2>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                <span class="font-mono text-xs bg-rose-100 text-rose-800 font-bold px-2 py-0.5 rounded">"frase exacta"</span>
+                                <p class="text-xs text-slate-600 mt-1">Busca la coincidencia literal. Ej: <code class="text-slate-800">"Revolución Mexicana causas"</code></p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                <span class="font-mono text-xs bg-rose-100 text-rose-800 font-bold px-2 py-0.5 rounded">filetype:pdf</span>
+                                <p class="text-xs text-slate-600 mt-1">Filtra solo documentos o libros descargables. Ej: <code class="text-slate-800">fisica II filetype:pdf</code></p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                <span class="font-mono text-xs bg-rose-100 text-rose-800 font-bold px-2 py-0.5 rounded">site:.edu / site:.gob</span>
+                                <p class="text-xs text-slate-600 mt-1">Filtra solo información proveniente de instituciones educativas o gubernamentales confiables.</p>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="md:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm min-h-[300px]" id="ppt-lesson-display">
-                    <!-- Se llena con JS -->
+                    <!-- Cybersecurity & Phishing -->
+                    <div class="space-y-4">
+                        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-lock text-rose-500"></i> Ciberseguridad para Estudiantes
+                        </h2>
+                        <div class="bg-rose-50/60 p-4 rounded-xl border border-rose-100 space-y-3">
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-fish text-rose-500 text-lg mt-0.5"></i>
+                                <div>
+                                    <h3 class="font-bold text-xs sm:text-sm text-slate-900">¿Qué es el Phishing?</h3>
+                                    <p class="text-xs text-slate-600">Mensajes de texto o correos falsos que simulan ser de tu escuela o red social para robarte tu contraseña. Siempre verifica el remitente.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-key text-rose-500 text-lg mt-0.5"></i>
+                                <div>
+                                    <h3 class="font-bold text-xs sm:text-sm text-slate-900">Contraseñas Fuertes y 2FA</h3>
+                                    <p class="text-xs text-slate-600">Usa más de 12 caracteres mezclando letras, números y símbolos. Activa la verificación en dos pasos (2FA) en tu correo institucional y redes.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-user-shield text-rose-500 text-lg mt-0.5"></i>
+                                <div>
+                                    <h3 class="font-bold text-xs sm:text-sm text-slate-900">Privacidad en Redes</h3>
+                                    <p class="text-xs text-slate-600">Nunca compartas fotos de credenciales, horarios de clase ni direcciones en cuentas públicas.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- VISTA: SEGURIDAD -->
-        <section id="view-seguridad" class="view-content hidden space-y-6">
-            <div class="bg-purple-50 border border-purple-200 rounded-2xl p-6">
-                <div class="flex items-center gap-3">
-                    <span class="bg-purple-600 text-white font-bold text-xl px-3 py-1 rounded-lg">🛡️</span>
+        <!-- MODULE 5: NUBE Y TRABAJO COLABORATIVO -->
+        <section id="tab-nube" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-cloud"></i>
+                    </div>
                     <div>
-                        <h2 class="font-heading text-2xl font-bold text-purple-900">Navegación Inteligente y Segura</h2>
-                        <p class="text-purple-700 text-sm">Busca información confiable para tus tareas y protege tu cuenta.</p>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Herramientas de Nube y Colaboración</h1>
+                        <p class="text-slate-600 text-sm sm:text-base">Trabaja en equipo en tiempo real sin perder archivos ni enviar miles de correos.</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="space-y-3">
-                    <p class="font-bold text-slate-700 text-sm uppercase tracking-wider">Lecciones de Seguridad</p>
-                    <button onclick="loadLesson('seguridad', 1)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-purple-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-purple-500">1. Cómo filtrar búsquedas en Google</button>
-                    <button onclick="loadLesson('seguridad', 2)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-purple-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-purple-500">2. Identificar Phishing e hilos falsos</button>
-                    <button onclick="loadLesson('seguridad', 3)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-purple-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-purple-500">3. Contraseñas fuertes y memorables</button>
-                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="text-indigo-600 font-bold text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-users"></i> Trabajar Simultáneamente
+                        </div>
+                        <p class="text-xs text-slate-600">Con Google Drive o OneDrive, varios compañeros pueden redactar el mismo documento a la vez. Verás sus cursores identificados con colores.</p>
+                    </div>
 
-                <div class="md:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm min-h-[300px]" id="seguridad-lesson-display">
-                    <!-- Se llena con JS -->
+                    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="text-indigo-600 font-bold text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-clock-rotate-left"></i> Historial de Versiones
+                        </div>
+                        <p class="text-xs text-slate-600">Si alguien borró por error un párrafo importante, ve a <strong>Archivo > Historial de versiones</strong> y restaura el trabajo al estado exacto que tenía horas antes.</p>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="text-indigo-600 font-bold text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-user-lock"></i> Permisos: Lector vs Editor
+                        </div>
+                        <p class="text-xs text-slate-600">Al compartir un enlace, elige con cuidado: <strong>Lector</strong> (solo puede ver), <strong>Comentador</strong> (puede poner sugerencias) o <strong>Editor</strong> (puede modificar todo).</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- VISTA: SOPORTE TÉCNICO Y ERRORES COMUNES -->
-        <section id="view-soporte" class="view-content hidden space-y-6">
-            <div class="bg-rose-50 border border-rose-200 rounded-2xl p-6">
-                <div class="flex items-center gap-3">
-                    <span class="bg-rose-600 text-white font-bold text-xl px-3 py-1 rounded-lg">🛠️</span>
+        <!-- MODULE 6: SOPORTE TÉCNICO Y SOLUCIÓN DE PROBLEMAS -->
+        <section id="tab-soporte" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-wrench"></i>
+                    </div>
                     <div>
-                        <h2 class="font-heading text-2xl font-bold text-rose-900">Soporte Técnico & Errores Comunes</h2>
-                        <p class="text-rose-700 text-sm">¿Se congeló el programa o no calcula tus datos? Aquí está la solución rápida.</p>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Soporte Técnico y Solución de Errores</h1>
+                        <p class="text-slate-600 text-sm sm:text-base">Aprende a resolver los problemas tecnológicos más molestos antes de entrar en pánico.</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
-                    <div class="flex items-center gap-2 text-rose-600 font-bold">
-                        <span>⚠️</span> Word o Excel dice "Modo de solo lectura" o "Uso no comercial"
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Office Errors -->
+                    <div class="space-y-4">
+                        <h2 class="text-lg font-bold text-slate-900 border-b pb-2">Errores Comunes en Office</h2>
+                        <div class="space-y-3">
+                            <div class="p-3 rounded-lg border border-slate-200 bg-slate-50">
+                                <h3 class="font-bold text-xs text-amber-800">1. Office no activado / Modo Lectura</h3>
+                                <p class="text-xs text-slate-600 mt-1">Inicia sesión con tu correo institucional (.edu o dominio escolar) para obtener la licencia completa sin costo adicional.</p>
+                            </div>
+                            <div class="p-3 rounded-lg border border-slate-200 bg-slate-50">
+                                <h3 class="font-bold text-xs text-amber-800">2. Se cerró Word sin guardar mi trabajo</h3>
+                                <p class="text-xs text-slate-600 mt-1">Abre Word, ve a <strong>Archivo > Información > Administrar documento > Recuperar documentos no guardados</strong>.</p>
+                            </div>
+                            <div class="p-3 rounded-lg border border-slate-200 bg-slate-50">
+                                <h3 class="font-bold text-xs text-amber-800">3. El audio/video no se reproduce en mi presentación</h3>
+                                <p class="text-xs text-slate-600 mt-1">Usa siempre formatos universales como MP4 o MP3. Guarda la presentación en formato .PPTX en lugar del estándar antiguo .PPT.</p>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-sm text-slate-600">Esto pasa cuando abres un archivo directo desde un correo o USB sin extraerlo, o si la licencia venció. Para solucionarlo:</p>
-                    <ul class="list-disc list-inside text-xs text-slate-700 space-y-1 bg-slate-50 p-3 rounded-lg border border-slate-100">
-                        <li>Haz clic en <strong>Habilitar edición</strong> en la barra amarilla superior.</li>
-                        <li>Guarda una copia nueva en tu computadora con <strong>Archivo &rarr; Guardar como</strong> en la carpeta <i>Documentos</i>.</li>
-                    </ul>
-                </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
-                    <div class="flex items-center gap-2 text-rose-600 font-bold">
-                        <span>⚠️</span> Excel muestra #¡VALOR!, #¿NOMBRE? o no calcula las fórmulas
+                    <!-- Excel Errors -->
+                    <div class="space-y-4">
+                        <h2 class="text-lg font-bold text-slate-900 border-b pb-2">Traductor de Errores de Excel</h2>
+                        <div class="space-y-3">
+                            <div class="p-3 rounded-lg border border-slate-200 bg-slate-50">
+                                <span class="font-mono text-xs font-bold text-rose-600">#¡VALOR!</span>
+                                <p class="text-xs text-slate-600 mt-0.5">Estás intentando realizar una operación matemática utilizando una celda que contiene letras o texto.</p>
+                            </div>
+                            <div class="p-3 rounded-lg border border-slate-200 bg-slate-50">
+                                <span class="font-mono text-xs font-bold text-rose-600">#REF!</span>
+                                <p class="text-xs text-slate-600 mt-0.5">La celda que la fórmula intentaba calcular fue eliminada por completo de la hoja.</p>
+                            </div>
+                            <div class="p-3 rounded-lg border border-slate-200 bg-slate-50">
+                                <span class="font-mono text-xs font-bold text-rose-600">#¿NOMBRE?</span>
+                                <p class="text-xs text-slate-600 mt-0.5">Escribiste mal la fórmula (ejemplo: pusiste <code class="text-slate-800">=SUMMA</code> en lugar de <code class="text-slate-800">=SUMA</code>).</p>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-sm text-slate-600">Suele ocurrir por tres razones simples:</p>
-                    <ul class="list-disc list-inside text-xs text-slate-700 space-y-1 bg-slate-50 p-3 rounded-lg border border-slate-100">
-                        <li><strong>#¡VALOR!:</strong> Intentaste sumar una celda que contiene letras o un espacio invisible.</li>
-                        <li><strong>#¿NOMBRE?:</strong> Escribiste mal la fórmula (ej. puse <code>PROMEDO</code> en lugar de <code>PROMEDIO</code>).</li>
-                        <li><strong>No calcula automáticamente:</strong> Ve a la pestaña <i>Fórmulas &rarr; Opciones de cálculo</i> y asegúrate de que esté marcado en <strong>Automático</strong>.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
-                    <div class="flex items-center gap-2 text-rose-600 font-bold">
-                        <span>⚠️</span> Se cerró el programa y no guardé mi tarea
-                    </div>
-                    <p class="text-sm text-slate-600">No entren en pánico, Office guarda respaldos automáticos en segundo plano:</p>
-                    <ul class="list-disc list-inside text-xs text-slate-700 space-y-1 bg-slate-50 p-3 rounded-lg border border-slate-100">
-                        <li>Abre Word/Excel de nuevo y busca la barra lateral izquierda <strong>"Recuperados"</strong>.</li>
-                        <li>Si no sale, ve a <i>Archivo &rarr; Información &rarr; Administrar documento &rarr; Recuperar documentos no guardados</i>.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
-                    <div class="flex items-center gap-2 text-rose-600 font-bold">
-                        <span>⚠️</span> PowerPoint no reproduce el audio o video en la computadora del salón
-                    </div>
-                    <p class="text-sm text-slate-600">Pasa seguido cuando vinculas un archivo multimedia desde tu memoria USB y luego cambias de computadora.</p>
-                    <ul class="list-disc list-inside text-xs text-slate-700 space-y-1 bg-slate-50 p-3 rounded-lg border border-slate-100">
-                        <li>Incrusta el video insertándolo directamente desde <i>Insertar &rarr; Video &rarr; Este dispositivo</i>.</li>
-                        <li>Antes de exponer, ve a <i>Archivo &rarr; Información &rarr; Optimizar la compatibilidad del archivo multimedia</i>.</li>
-                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- VISTA: RECURSOS Y DESCARGAS -->
-        <section id="view-recursos" class="view-content hidden space-y-6">
-            <div class="bg-teal-50 border border-teal-200 rounded-2xl p-6">
-                <div class="flex items-center gap-3">
-                    <span class="bg-teal-600 text-white font-bold text-xl px-3 py-1 rounded-lg">📦</span>
-                    <div>
-                        <h2 class="font-heading text-2xl font-bold text-teal-900">Recursos y Herramientas Útiles</h2>
-                        <p class="text-teal-700 text-sm">Sitios web y herramientas gratuitas que te harán la vida más fácil en la prepa.</p>
+        <!-- MODULE 7: ATAJOS DE TECLADO E IMPRIMIBLES -->
+        <section id="tab-atajos" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b pb-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-xl flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-solid fa-keyboard"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Atajos e Imprimibles Indispensables</h1>
+                            <p class="text-slate-600 text-sm sm:text-base">Gana velocidad de trabajo utilizando combinaciones clave de teclado.</p>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Plantillas -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="w-10 h-10 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center font-bold text-lg">🎨</div>
-                    <h3 class="font-heading font-bold text-lg text-slate-900">Plantillas para PowerPoint</h3>
-                    <p class="text-xs text-slate-600">Sustituye los diseños predeterminados aburridos por diapositivas modernas.</p>
-                    <ul class="space-y-2 text-xs">
-                        <li class="p-2 bg-slate-50 rounded border border-slate-100 flex justify-between items-center">
-                            <span class="font-bold text-slate-700">Slidesgo</span>
-                            <span class="text-teal-600 font-semibold">Gratis</span>
-                        </li>
-                        <li class="p-2 bg-slate-50 rounded border border-slate-100 flex justify-between items-center">
-                            <span class="font-bold text-slate-700">SlidesCarnival</span>
-                            <span class="text-teal-600 font-semibold">Gratis</span>
-                        </li>
-                    </ul>
+                    <button onclick="window.print()" class="bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2">
+                        <i class="fa-solid fa-print"></i> Imprimir Guía
+                    </button>
                 </div>
 
-                <!-- Imágenes Libres -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-lg">🖼️</div>
-                    <h3 class="font-heading font-bold text-lg text-slate-900">Fotos de Alta Calidad</h3>
-                    <p class="text-xs text-slate-600">Bancos de imágenes sin marcas de agua ni píxeles borrosos para portadas o presentaciones.</p>
-                    <ul class="space-y-2 text-xs">
-                        <li class="p-2 bg-slate-50 rounded border border-slate-100 flex justify-between items-center">
-                            <span class="font-bold text-slate-700">Unsplash</span>
-                            <span class="text-teal-600 font-semibold">Sin copyright</span>
-                        </li>
-                        <li class="p-2 bg-slate-50 rounded border border-slate-100 flex justify-between items-center">
-                            <span class="font-bold text-slate-700">Pexels</span>
-                            <span class="text-teal-600 font-semibold">Fotos + Video</span>
-                        </li>
-                    </ul>
-                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- General Windows Shortcuts -->
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+                        <h2 class="font-bold text-slate-900 text-sm flex items-center gap-2 border-b pb-2">
+                            <i class="fa-brands fa-windows text-blue-500"></i> Windows General
+                        </h2>
+                        <ul class="text-xs space-y-2 text-slate-700">
+                            <li class="flex justify-between items-center"><span>Copiar</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + C</kbd></li>
+                            <li class="flex justify-between items-center"><span>Pegar</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + V</kbd></li>
+                            <li class="flex justify-between items-center"><span>Cortar</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + X</kbd></li>
+                            <li class="flex justify-between items-center"><span>Deshacer</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + Z</kbd></li>
+                            <li class="flex justify-between items-center"><span>Captura de pantalla parcial</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Win + Shift + S</kbd></li>
+                            <li class="flex justify-between items-center"><span>Bloquear equipo rápidamente</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Win + L</kbd></li>
+                        </ul>
+                    </div>
 
-                <!-- Herramientas PDF -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center font-bold text-lg">📄</div>
-                    <h3 class="font-heading font-bold text-lg text-slate-900">Conversión de PDF</h3>
-                    <p class="text-xs text-slate-600">Unir varios documentos, reducir el peso del archivo o convertir imagenes a PDF.</p>
-                    <ul class="space-y-2 text-xs">
-                        <li class="p-2 bg-slate-50 rounded border border-slate-100 flex justify-between items-center">
-                            <span class="font-bold text-slate-700">ILovePDF</span>
-                            <span class="text-teal-600 font-semibold">Web recomendada</span>
-                        </li>
-                        <li class="p-2 bg-slate-50 rounded border border-slate-100 flex justify-between items-center">
-                            <span class="font-bold text-slate-700">Smallpdf</span>
-                            <span class="text-teal-600 font-semibold">Unir y comprimir</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+                    <!-- Word Shortcuts -->
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+                        <h2 class="font-bold text-slate-900 text-sm flex items-center gap-2 border-b pb-2">
+                            <i class="fa-regular fa-file-word text-blue-600"></i> Microsoft Word
+                        </h2>
+                        <ul class="text-xs space-y-2 text-slate-700">
+                            <li class="flex justify-between items-center"><span>Guardar documento</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + G</kbd></li>
+                            <li class="flex justify-between items-center"><span>Texto en Negrita</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + N</kbd></li>
+                            <li class="flex justify-between items-center"><span>Texto en Cursiva</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + K</kbd></li>
+                            <li class="flex justify-between items-center"><span>Texto Subrayado</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + S</kbd></li>
+                            <li class="flex justify-between items-center"><span>Centrar párrafo</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + T</kbd></li>
+                            <li class="flex justify-between items-center"><span>Justificar texto</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + J</kbd></li>
+                        </ul>
+                    </div>
 
-            <!-- Hoja de atajos para imprimir -->
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <h3 class="font-heading font-bold text-lg text-slate-900 mb-3 flex items-center gap-2">
-                    <span>🖨️</span> Chuleta de Atajos de Teclado (Para memorizar)
-                </h3>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-center text-xs">
-                    <div class="p-2 bg-slate-50 rounded border border-slate-200"><span class="shortcut-key">Ctrl+A</span> Seleccionar todo</div>
-                    <div class="p-2 bg-slate-50 rounded border border-slate-200"><span class="shortcut-key">Ctrl+P</span> Imprimir</div>
-                    <div class="p-2 bg-slate-50 rounded border border-slate-200"><span class="shortcut-key">Ctrl+N</span> Letra Negrita</div>
-                    <div class="p-2 bg-slate-50 rounded border border-slate-200"><span class="shortcut-key">Ctrl+K</span> Letra Cursiva</div>
-                    <div class="p-2 bg-slate-50 rounded border border-slate-200"><span class="shortcut-key">F5</span> Iniciar PowerPoint</div>
-                    <div class="p-2 bg-slate-50 rounded border border-slate-200"><span class="shortcut-key">Alt+Tab</span> Cambiar de ventana</div>
+                    <!-- Excel & Web Shortcuts -->
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+                        <h2 class="font-bold text-slate-900 text-sm flex items-center gap-2 border-b pb-2">
+                            <i class="fa-regular fa-file-excel text-emerald-600"></i> Excel y Navegador
+                        </h2>
+                        <ul class="text-xs space-y-2 text-slate-700">
+                            <li class="flex justify-between items-center"><span>Autosuma en celda</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Alt + =</kbd></li>
+                            <li class="flex justify-between items-center"><span>Buscar término</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + B</kbd></li>
+                            <li class="flex justify-between items-center"><span>Nueva pestaña web</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + T</kbd></li>
+                            <li class="flex justify-between items-center"><span>Reabrir pestaña cerrada</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + Shift + T</kbd></li>
+                            <li class="flex justify-between items-center"><span>Seleccionar todo</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + E</kbd></li>
+                            <li class="flex justify-between items-center"><span>Imprimir rápidamente</span> <kbd class="px-2 py-0.5 bg-white border border-slate-300 rounded font-mono shadow-2xs">Ctrl + P</kbd></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- VISTA: PREGUNTAS FRECUENTES (FAQ) -->
-        <section id="view-faq" class="view-content hidden space-y-6">
-            <div class="bg-sky-50 border border-sky-200 rounded-2xl p-6">
-                <div class="flex items-center gap-3">
-                    <span class="bg-sky-600 text-white font-bold text-xl px-3 py-1 rounded-lg">❓</span>
+        <!-- MODULE 8: RECURSOS Y HERRAMIENTAS GRATUITAS -->
+        <section id="tab-recursos" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
                     <div>
-                        <h2 class="font-heading text-2xl font-bold text-sky-900">Preguntas Frecuentes (FAQ)</h2>
-                        <p class="text-sky-700 text-sm">Respuestas claras a dudas comunes que salen durante el ciclo escolar.</p>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Recursos y Herramientas Gratuitas</h1>
+                        <p class="text-slate-600 text-sm sm:text-base">Bancos de imágenes, plantillas de diseño y utilidades esenciales para tus entregas.</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="space-y-4">
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 class="font-heading font-bold text-base text-slate-900 mb-1">1. ¿Qué diferencia hay entre Microsoft Office, Google Docs y LibreOffice?</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        <strong>Microsoft Office (Word, Excel, PPT)</strong> es el estándar de la industria y el más completo. 
-                        <strong>Google Docs/Sheets</strong> funciona directo en internet sin instalar nada y sirve perfecto para trabajos en equipo al mismo tiempo. 
-                        <strong>LibreOffice</strong> es una alternativa 100% gratuita que puedes instalar en tu computadora si no tienes licencia de Office.
-                    </p>
-                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Slides Templates -->
+                    <div class="p-4 rounded-xl border border-slate-200 hover:border-teal-400 transition bg-slate-50/50 space-y-2">
+                        <div class="text-teal-600 text-xl font-bold"><i class="fa-solid fa-file-powerpoint"></i></div>
+                        <h2 class="font-bold text-slate-900 text-sm">Plantillas de Presentación</h2>
+                        <p class="text-xs text-slate-600">Diseños profesionales listos para usar en PowerPoint y Google Slides.</p>
+                        <ul class="text-xs font-semibold text-teal-700 space-y-1 pt-1">
+                            <li>• Slidesgo</li>
+                            <li>• SlidesCarnival</li>
+                        </ul>
+                    </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 class="font-heading font-bold text-base text-slate-900 mb-1">2. ¿Cómo obtengo Microsoft Office gratis si soy estudiante?</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        Casi todas las escuelas y preparatorias públicas o privadas proveen un correo institucional (terminación <code>.edu</code> o la clave de tu escuela). Con ese correo puedes entrar en <span class="font-semibold text-blue-700">office.com</span> y descargar la paquetería completa de Microsoft 365 sin pagar nada durante el tiempo que curses tu bachillerato.
-                    </p>
-                </div>
+                    <!-- Image Banks -->
+                    <div class="p-4 rounded-xl border border-slate-200 hover:border-teal-400 transition bg-slate-50/50 space-y-2">
+                        <div class="text-teal-600 text-xl font-bold"><i class="fa-solid fa-image"></i></div>
+                        <h2 class="font-bold text-slate-900 text-sm">Bancos de Imágenes Libres</h2>
+                        <p class="text-xs text-slate-600">Fotografías en alta resolución libres de derechos de autor para tus trabajos.</p>
+                        <ul class="text-xs font-semibold text-teal-700 space-y-1 pt-1">
+                            <li>• Unsplash</li>
+                            <li>• Pexels</li>
+                            <li>• Pixabay</li>
+                        </ul>
+                    </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 class="font-heading font-bold text-base text-slate-900 mb-1">3. ¿Qué formato debo usar para mandar mis tareas: .docx o .pdf?</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        <strong>Envía en PDF</strong> si el trabajo ya está terminado y es la versión final (ensayos, reportes, investigaciones). Esto asegura que la letra, imágenes y párrafos no se desacomoden. Usa <strong>.docx</strong> solo cuando el profesor vaya a revisar un borrador o necesite agregar comentarios y ediciones directamente sobre el documento.
-                    </p>
-                </div>
+                    <!-- PDF Tools -->
+                    <div class="p-4 rounded-xl border border-slate-200 hover:border-teal-400 transition bg-slate-50/50 space-y-2">
+                        <div class="text-teal-600 text-xl font-bold"><i class="fa-solid fa-file-pdf"></i></div>
+                        <h2 class="font-bold text-slate-900 text-sm">Herramientas PDF</h2>
+                        <p class="text-xs text-slate-600">Une, divide, comprime o convierte archivos PDF en segundos directamente en línea.</p>
+                        <ul class="text-xs font-semibold text-teal-700 space-y-1 pt-1">
+                            <li>• ILovePDF</li>
+                            <li>• Smallpdf</li>
+                        </ul>
+                    </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 class="font-heading font-bold text-base text-slate-900 mb-1">4. ¿Cómo debo subir mis tareas a plataformas como Teams o Classroom?</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        Siempre revisa el nombre del archivo antes de subirlo. Un buen hábito para evitar confusiones es nombrarlo así: <code>Materia_Nombre_Apellido_Tarea1.pdf</code> (ejemplo: <i>Biologia_Juan_Perez_Practica1.pdf</i>). Nunca lo dejes con nombres genéricos como <i>Documento1.pdf</i>.
-                    </p>
+                    <!-- Fonts & Icons -->
+                    <div class="p-4 rounded-xl border border-slate-200 hover:border-teal-400 transition bg-slate-50/50 space-y-2">
+                        <div class="text-teal-600 text-xl font-bold"><i class="fa-solid fa-font"></i></div>
+                        <h2 class="font-bold text-slate-900 text-sm">Fuentes e Iconos</h2>
+                        <p class="text-xs text-slate-600">Tipografías gratuitas para descargar e iconos vectoriales para personalizar.</p>
+                        <ul class="text-xs font-semibold text-teal-700 space-y-1 pt-1">
+                            <li>• Google Fonts</li>
+                            <li>• FontAwesome</li>
+                            <li>• Flaticon</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- VISTA: PRÁCTICA E INTERACTIVO -->
-        <section id="view-practica" class="view-content hidden space-y-8">
-            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6">
-                <h2 class="font-heading text-2xl font-bold text-amber-900 mb-2">⚡ Zona Práctica: Simula y Ponte a Prueba</h2>
-                <p class="text-amber-800 text-sm">Pon a prueba lo aprendido con este mini-quiz interactivo y la herramienta de promedios rápida.</p>
+        <!-- MODULE 9: PREGUNTAS FRECUENTES (FAQ) -->
+        <section id="tab-faq" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-circle-question"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Preguntas Frecuentes (FAQ)</h1>
+                        <p class="text-slate-600 text-sm sm:text-base">Respuestas rápidas a las dudas comunes en entornos escolares virtuales.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                        <h2 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-purple-600"></i> ¿Cómo consigo la licencia gratuita de Microsoft Office con mi correo de la prepa?
+                        </h2>
+                        <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                            Ingresa al portal oficial de Microsoft Office para educación (office.com/getoffice365) e ingresa tu correo institucional de estudiante (usualmente termina en <code class="text-purple-700">.edu.mx</code> o con la clave de tu institución). El sistema validará tu cuenta activa y podrás instalar el paquete completo o utilizarlo en línea totalmente gratis.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                        <h2 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-code-compare text-purple-600"></i> ¿Cuál es la diferencia real entre Microsoft Office 365, Google Docs y LibreOffice?
+                        </h2>
+                        <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                            <strong>Office 365</strong> es la suite más potente y estándar del mercado. <strong>Google Docs</strong> funciona directamente en la nube y es la mejor para colaborar en tiempo real de forma ágil. <strong>LibreOffice</strong> es un software 100% gratuito e instalable de código abierto que no requiere internet.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                        <h2 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-upload text-purple-600"></i> ¿Cómo entregar tareas correctamente en Classroom, Teams o Canvas sin que falle el archivo?
+                        </h2>
+                        <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                            Asegúrate de convertir tu trabajo a formato <strong>PDF</strong> a menos que el profesor te pida explícitamente la hoja de cálculo o presentación editable. Revisa siempre dar clic en el botón <strong>"Entregar"</strong> o <strong>"Enviar tarea"</strong> tras adjuntar tu archivo, asegurándote de ver la confirmación en pantalla.
+                        </p>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <!-- SIMULADOR RÁPIDO: CALCULADORA DE PROMEDIO EXCEL -->
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <h3 class="font-heading font-bold text-lg text-slate-900 mb-3 flex items-center gap-2">
-                    <span class="text-emerald-600 font-bold">X</span> Mini-Simulador: Calcula tu Promedio Escolar
-                </h3>
-                <p class="text-slate-600 text-sm mb-4">Ingresa 3 calificaciones para simular la fórmula <code class="bg-slate-100 px-2 py-0.5 rounded text-emerald-700 font-mono text-xs">=PROMEDIO(A1:A3)</code> de Excel.</p>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Materia 1</label>
-                        <input type="number" id="grade1" value="8" min="0" max="10" class="w-full border border-slate-300 rounded-lg p-2 text-center font-bold text-slate-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+        <!-- MODULE 10: QUIZ DE EVALUACIÓN AMPLIADO -->
+        <section id="tab-quiz" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b pb-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Quiz de Evaluación Ampliado</h1>
+                            <p class="text-slate-600 text-sm sm:text-base">Demuestra lo que has aprendido respondiendo las preguntas de todos los módulos.</p>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Materia 2</label>
-                        <input type="number" id="grade2" value="9" min="0" max="10" class="w-full border border-slate-300 rounded-lg p-2 text-center font-bold text-slate-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Materia 3</label>
-                        <input type="number" id="grade3" value="10" min="0" max="10" class="w-full border border-slate-300 rounded-lg p-2 text-center font-bold text-slate-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <div id="quiz-score-badge" class="bg-slate-100 border border-slate-300 text-slate-700 px-4 py-2 rounded-xl text-sm font-bold">
+                        Puntaje: <span id="current-score">0</span> / 6
                     </div>
                 </div>
-                <div class="flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <button onclick="calculateAverage()" class="bg-emerald-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-emerald-700 transition text-sm">Ejecutar Fórmula</button>
-                    <div class="text-right">
-                        <span class="text-xs text-slate-500 font-medium">Resultado:</span>
-                        <p id="average-result" class="text-xl font-extrabold text-emerald-700">9.0</p>
+
+                <form id="quiz-form" class="space-y-6">
+                    <!-- Q1 -->
+                    <div class="p-4 sm:p-5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+                        <p class="font-semibold text-sm text-slate-900">1. Según las normas APA 7.ª edición, ¿cuál es el margen estándar requerido?</p>
+                        <div class="space-y-2 text-xs sm:text-sm">
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q1" value="a"> 3.0 cm superior e inferior</label>
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q1" value="b"> 2.54 cm (1 pulgada) por todos los lados</label>
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q1" value="c"> 1.5 cm con texto totalmente justificado</label>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- QUIZ DE OPCIÓN MÚLTIPLE -->
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="font-heading font-bold text-lg text-slate-900">Quiz Rápido de Computación</h3>
-                    <span id="quiz-score" class="text-xs font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Puntos: 0</span>
-                </div>
+                    <!-- Q2 -->
+                    <div class="p-4 sm:p-5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+                        <p class="font-semibold text-sm text-slate-900">2. ¿Qué fórmula de Excel debes usar si quieres contar celdas solo si cumplen una regla concreta?</p>
+                        <div class="space-y-2 text-xs sm:text-sm">
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q2" value="a"> =CONTAR.SI()</label>
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q2" value="b"> =SUMAR.SI()</label>
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q2" value="c"> =BUSCARV()</label>
+                        </div>
+                    </div>
 
-                <div id="quiz-container" class="space-y-6">
-                    <!-- Las preguntas se inyectan con JS -->
+                    <!-- Q3 -->
+                    <div class="p-4 sm:p-5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+                        <p class="font-semibold text-sm text-slate-900">3. ¿En qué consiste la regla visual 6x6 para presentaciones eficientes?</p>
+                        <div class="space-y-2 text-xs sm:text-sm">
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q3" value="a"> Usar 6 imágenes y 6 colores llamativos por diapositiva</label>
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q3" value="b"> Máximo 6 líneas por diapositiva y máximo 6 palabras por línea</label>
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q3" value="c"> Presentar exactamente 6 diapositivas en un tiempo de 6 minutos</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="p-4 sm:p-5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+                        <p class="font-semibold text-sm text-slate-900">4. Si deseas buscar en Google únicamente documentos en PDF sobre la tabla periódica, ¿qué filtro utilizas?</p>
+                        <div class="space-y-2 text-xs sm:text-sm">
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q4" value="a"> tabla periodica filetype:pdf</label>
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q4" value="b"> tabla periodica site:pdf</label>
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q4" value="c"> "tabla periodica" pdf</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="p-4 sm:p-5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+                        <p class="font-semibold text-sm text-slate-900">5. ¿Qué significa el error #¿NOMBRE? en una celda de Microsoft Excel?</p>
+                        <div class="space-y-2 text-xs sm:text-sm">
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q5" value="a"> Hay una celda borrada que era requerida por la fórmula</label>
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q5" value="b"> Hubo un error tipográfico al escribir el nombre de la fórmula</label>
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q5" value="c"> Se introdujo un número negativo no permitido</label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div class="p-4 sm:p-5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+                        <p class="font-semibold text-sm text-slate-900">6. ¿Qué función de la nube te ayuda a recuperar un párrafo eliminado por error horas atrás?</p>
+                        <div class="space-y-2 text-xs sm:text-sm">
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q6" value="a"> Modo Lector</label>
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q6" value="b"> Historial de Versiones</label>
+                            <label class="flex items-center gap-2 p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-slate-100"><input type="radio" name="q6" value="c"> Permiso de Editor</label>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                        <button type="button" onclick="evaluateQuiz()" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-6 py-3 rounded-xl transition shadow">
+                            <i class="fa-solid fa-paper-plane"></i> Evaluar Mis Respuestas
+                        </button>
+                        <button type="button" onclick="resetQuiz()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-4 py-3 rounded-xl transition">
+                            Reiniciar Quiz
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Feedback Box -->
+                <div id="quiz-results" class="hidden p-5 rounded-xl border text-sm space-y-2">
+                    <h3 id="quiz-results-title" class="font-bold text-base"></h3>
+                    <p id="quiz-results-msg" class="text-xs sm:text-sm"></p>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Pie de página sencillo -->
-    <footer class="bg-white border-t border-slate-200 mt-auto py-6 text-center text-xs text-slate-500">
-        <div class="max-w-6xl mx-auto px-4">
-            <p class="font-medium text-slate-600">Material educativo diseñado para estudiantes de bachillerato y preparatoria.</p>
-            <p class="mt-1">Sin complicaciones, directo al grano. ¡Aplica estos trucos en tu próxima tarea!</p>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p>© CompuPrepa - Guía Práctica de Computación Básica para Bachillerato.</p>
+            <p class="text-slate-500">Diseñado para ser accesible, rápido e interactivo en todos tus dispositivos.</p>
         </div>
     </footer>
 
-    <!-- LÓGICA JAVASCRIPT -->
+    <!-- Interactive JavaScript Logic -->
     <script>
-        // Datos de lecciones escritas de forma natural y clara
-        const lessonsData = {
-            word: {
-                1: {
-                    title: "1. Saltos de página vs presionar Enter varias veces",
-                    content: `
-                        <p class="text-slate-700 mb-4">Un error super común cuando entregamos un trabajo es presionar la tecla <span class="shortcut-key">Enter</span> diez veces para mandar un título a la siguiente página. Cuando agregas texto arriba, todo tu documento se desacomoda.</p>
-                        <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-r-xl mb-4">
-                            <h5 class="font-bold text-blue-900 text-sm">La solución correcta:</h5>
-                            <p class="text-blue-800 text-sm mt-1">Usa la combinación <span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">Enter</span>. Esto inserta un <strong>Salto de Página</strong> instantáneo. No importa qué agregues arriba, la siguiente página empezará justo donde querías.</p>
-                        </div>
-                    `
-                },
-                2: {
-                    title: "2. Encabezados e Índices Automáticos",
-                    content: `
-                        <p class="text-slate-700 mb-4">No hagas un índice escribiendo puntos manualmente como <code>Introducción...........1</code>. Si cambia la página, tendrás que arreglar todo a mano.</p>
-                        <ol class="list-decimal list-inside space-y-2 text-slate-700 text-sm mb-4">
-                            <li>Selecciona tus títulos principales y aplícales el estilo <strong>Título 1</strong> o <strong>Título 2</strong> en la barra superior.</li>
-                            <li>Ve a la pestaña <strong>Referencias</strong>.</li>
-                            <li>Haz clic en <strong>Tabla de contenido</strong> y selecciona la primera opción.</li>
-                        </ol>
-                        <p class="text-xs text-slate-500 italic">¡Listo! Tu índice se genera solo y puedes actualizarlo con un solo clic si cambias algo.</p>
-                    `
-                },
-                3: {
-                    title: "3. Interlineado y Formato Limpio",
-                    content: `
-                        <p class="text-slate-700 mb-4">Para que un ensayo de la prepa luzca ordenado y profesional sin esfuerzo:</p>
-                        <ul class="list-disc list-inside space-y-2 text-slate-700 text-sm mb-4">
-                            <li><strong>Tipografía:</strong> Usa fuentes legibles como Arial, Calibri o Times New Roman a 11 o 12 puntos.</li>
-                            <li><strong>Interlineado:</strong> Selecciona tu texto y presiona <span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">2</span> para espacio doble, o usa 1.5 líneas en el menú de Párrafo.</li>
-                            <li><strong>Alineación:</strong> Usa texto <strong>Justificado</strong> (<span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">J</span>) para que los bordes laterales queden alineados.</li>
-                        </ul>
-                    `
-                },
-                4: {
-                    title: "4. Guardar y Exportar a PDF",
-                    content: `
-                        <p class="text-slate-700 mb-4">Nunca envíes un trabajo en formato <code>.docx</code> a menos que el profe lo pida explícitamente, porque las imágenes y tipos de letra se pueden mover según la computadora donde se abra.</p>
-                        <p class="text-slate-700 text-sm mb-4">Paso rápido: Ve a <strong>Archivo</strong> &rarr; <strong>Guardar como</strong> &rarr; Cambia el tipo de documento a <strong>PDF (*.pdf)</strong>. O simplemente usa <strong>Exportar a PDF</strong>.</p>
-                    `
-                }
-            },
-            excel: {
-                1: {
-                    title: "1. ¿Qué es una Celda, Fila y Columna?",
-                    content: `
-                        <p class="text-slate-700 mb-3">Excel se organiza en una cuadrícula sencilla:</p>
-                        <ul class="list-disc list-inside space-y-2 text-slate-700 text-sm mb-4">
-                            <li><strong>Columnas:</strong> Van verticales y se nombran con letras (A, B, C...).</li>
-                            <li><strong>Filas:</strong> Van horizontales y se nombran con números (1, 2, 3...).</li>
-                            <li><strong>Celda:</strong> Es la intersección de una columna y una fila. Por ejemplo, <strong>B4</strong> es la celda en columna B, fila 4.</li>
-                        </ul>
-                        <p class="text-xs text-emerald-800 bg-emerald-50 p-3 rounded-lg border border-emerald-200"><strong>Regla de oro:</strong> Toda fórmula en Excel DEBE empezar siempre con el signo igual <code>=</code>.</p>
-                    `
-                },
-                2: {
-                    title: "2. Fórmulas de Promedio y Suma",
-                    content: `
-                        <p class="text-slate-700 mb-3">Olvídate de sumar con la calculadora del celular e ingresar el dato manual.</p>
-                        <div class="space-y-3">
-                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                                <p class="font-bold text-slate-800 text-sm">Suma automática:</p>
-                                <code class="text-emerald-700 text-sm font-bold">=SUMA(A1:A10)</code>
-                                <p class="text-xs text-slate-500 mt-1">Suma todos los números contenidos entre la celda A1 y la A10.</p>
-                            </div>
-                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                                <p class="font-bold text-slate-800 text-sm">Promedio de calificaciones:</p>
-                                <code class="text-emerald-700 text-sm font-bold">=PROMEDIO(B1:B5)</code>
-                                <p class="text-xs text-slate-500 mt-1">Obtiene el promedio exacto sin tener que dividir manualmente entre la cantidad de materias.</p>
-                            </div>
-                        </div>
-                    `
-                },
-                3: {
-                    title: "3. Crear una gráfica en 3 clics",
-                    content: `
-                        <p class="text-slate-700 mb-4">Las gráficas hacen que cualquier reporte de ciencias o matemáticas se vea increíble.</p>
-                        <ol class="list-decimal list-inside space-y-2 text-slate-700 text-sm mb-4">
-                            <li>Selecciona la tabla con los datos que quieres graficar (incluyendo los títulos de la tabla).</li>
-                            <li>Ve a la pestaña <strong>Insertar</strong>.</li>
-                            <li>Elige <strong>Gráficos recomendados</strong> o selecciona una gráfica de barras/columnas sencilla.</li>
-                        </ol>
-                    `
-                }
-            },
-            ppt: {
-                1: {
-                    title: "1. La regla 6x6 (Diapositivas limpias)",
-                    content: `
-                        <p class="text-slate-700 mb-3">El error más grande al exponer es llenar la diapositiva de párrafos gigantescos para leerlos directo del cañón.</p>
-                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-200 mb-3">
-                            <h5 class="font-bold text-orange-900 text-sm">¿En qué consiste la regla 6x6?</h5>
-                            <p class="text-orange-800 text-sm mt-1">Máximo <strong>6 líneas de texto</strong> por diapositiva y máximo <strong>6 palabras</strong> por cada línea. La diapositiva es un apoyo visual para tu público, no un acordeón personal.</p>
-                        </div>
-                    `
-                },
-                2: {
-                    title: "2. Contraste de Colores y Tipografía",
-                    content: `
-                        <p class="text-slate-700 mb-3">Asegúrate de que tus textos se lean bien incluso si el cañón de la escuela proyecta con poca luz:</p>
-                        <ul class="list-disc list-inside space-y-2 text-slate-700 text-sm mb-4">
-                            <li><strong>Fondo claro + Texto oscuro:</strong> Ej. Fondo blanco o gris muy claro con texto azul marino o negro. (La opción más segura).</li>
-                            <li><strong>Fondo oscuro + Texto claro:</strong> Ej. Fondo azul oscuro con texto blanco o amarillo claro.</li>
-                            <li><strong>Evita:</strong> Combinar verde con rojo o usar letras fluorescentes que desgastan la vista.</li>
-                        </ul>
-                    `
-                },
-                3: {
-                    title: "3. Animaciones discretas",
-                    content: `
-                        <p class="text-slate-700 mb-4">Las animaciones exageradas hacen perder tiempo y distraen a la clase.</p>
-                        <p class="text-slate-700 text-sm mb-3">Usa efectos sencillos como <strong>Aparecer</strong> o <strong>Desvanecer</strong>. Evita efectos ruidosos o giros de 360 grados para cada elemento.</p>
-                    `
-                }
-            },
-            seguridad: {
-                1: {
-                    title: "1. Cómo filtrar búsquedas en Google",
-                    content: `
-                        <p class="text-slate-700 mb-3">Para encontrar mejores fuentes académicas y no quedarte solo con el primer resultado:</p>
-                        <div class="space-y-2 text-sm">
-                            <div class="p-2 bg-slate-50 border rounded font-mono">"Revolución Mexicana" PDF</div>
-                            <p class="text-xs text-slate-500">Usa comillas para buscar la frase exacta y escribe "PDF" para hallar documentos o libros descargables.</p>
-                            <div class="p-2 bg-slate-50 border rounded font-mono">site:.edu.mx célula vegetal</div>
-                            <p class="text-xs text-slate-500">Usa <code>site:.edu</code> para limitar la búsqueda a portales educativos o universitarios de confianza.</p>
-                        </div>
-                    `
-                },
-                2: {
-                    title: "2. Identificar Phishing e Hilos Falsos",
-                    content: `
-                        <p class="text-slate-700 mb-3">El <i>Phishing</i> es un engaño donde te mandan un mensaje simulando ser tu escuela, correo o red social para robarte la cuenta.</p>
-                        <ul class="list-disc list-inside space-y-2 text-slate-700 text-sm mb-4">
-                            <li>Revisa siempre la dirección o correo del remitente (ej. si dice <code>soporte@facebook-seguridad-alerta12.com</code> es falso).</li>
-                            <li>Sospecha si te meten prisa ("¡Tu cuenta será cerrada en 2 horas!").</li>
-                            <li>No des clic a enlaces sospechosos ni descargues archivos adjuntos extraños.</li>
-                        </ul>
-                    `
-                },
-                3: {
-                    title: "3. Contraseñas fuertes y sencillas de recordar",
-                    content: `
-                        <p class="text-slate-700 mb-3">No uses <code>123456</code>, tu fecha de nacimiento ni tu nombre. Son las primeras que prueban los programas de rastreo.</p>
-                        <div class="bg-purple-50 p-4 rounded-xl border border-purple-200">
-                            <p class="font-bold text-purple-900 text-sm">Truco de la frase clave:</p>
-                            <p class="text-purple-800 text-sm mt-1">Elige una frase que recuerdes bien y junta palabras con símbolos o números:</p>
-                            <code class="block mt-2 bg-white p-2 rounded text-purple-900 font-bold border border-purple-300">MiPerritoLucas#2024!</code>
-                        </div>
-                    `
-                }
-            }
-        };
-
-        // Preguntas del Quiz
-        const quizQuestions = [
-            {
-                q: "¿Cuál es el atajo de teclado para deshacer una acción cuando cometes un error?",
-                options: ["Ctrl + C", "Ctrl + Z", "Ctrl + P", "Alt + F4"],
-                correct: 1
-            },
-            {
-                q: "¿Qué signo debe ir obligatoriamente al inicio de cualquier fórmula en Excel?",
-                options: ["#", "$", "=", "%"],
-                correct: 2
-            },
-            {
-                q: "En Word, ¿cuál es la mejor manera de pasar el texto a la siguiente página sin desacomodar el documento?",
-                options: [
-                    "Presionar Enter diez veces",
-                    "Usar la combinación Ctrl + Enter (Salto de página)",
-                    "Cambiar el tamaño de la letra a 50pt",
-                    "Borrar el texto y volverlo a escribir abajo"
-                ],
-                correct: 1
-            },
-            {
-                q: "¿En qué consiste la regla de diseño 6x6 en PowerPoint?",
-                options: [
-                    "Usar 6 imágenes y 6 colores por diapositiva",
-                    "Máximo 6 líneas de texto y 6 palabras por línea",
-                    "Entregar la presentación en un grupo de 6 alumnos",
-                    "Hacer diapositivas que duren 6 segundos"
-                ],
-                correct: 1
-            },
-            {
-                q: "¿Cómo puedes restringir una búsqueda en Google para encontrar documentos en formato de archivo PDF?",
-                options: [
-                    "Escribiendo la palabra 'por favor'",
-                    "Agregando la palabra PDF en la búsqueda o el comando filetype:pdf",
-                    "Cerrando la ventana de Google y volviéndola a abrir",
-                    "Haciendo clic derecho en cualquier enlace"
-                ],
-                correct: 1
-            }
-        ];
-
-        let score = 0;
-
-        // Función para cambiar de pestaña/módulo
+        // Tab switching function
         function switchTab(tabId) {
-            // Ocultar todas las vistas
-            document.querySelectorAll('.view-content').forEach(view => {
-                view.classList.add('hidden');
-            });
+            // Hide all tab content
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
 
-            // Remover estado activo de botones
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-slate-100', 'text-blue-700', 'border-b-2', 'border-blue-600');
-            });
+            // Deactivate all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
 
-            // Mostrar vista seleccionada
-            const targetView = document.getElementById('view-' + tabId);
-            if(targetView) {
-                targetView.classList.remove('hidden');
+            // Show current tab content
+            const targetContent = document.getElementById('tab-' + tabId);
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
             }
 
-            // Marcar botón actual
-            const targetNav = document.getElementById('nav-' + tabId);
-            if(targetNav) {
-                targetNav.classList.add('bg-slate-100', 'text-blue-700');
+            // Activate current button
+            const targetBtn = document.getElementById('btn-' + tabId);
+            if (targetBtn) {
+                targetBtn.classList.add('active');
             }
 
-            // Cargar lección 1 por defecto en cada módulo
-            if(lessonsData[tabId]) {
-                loadLesson(tabId, 1);
-            }
-
+            // Scroll smoothly to top of main area
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Cargar contenido de lecciones
-        function loadLesson(module, lessonId) {
-            const display = document.getElementById(module + '-lesson-display');
-            if (!display) return;
+        // Excel Grade Simulator Logic
+        function calcGrades() {
+            const p1 = parseFloat(document.getElementById('sim-p1').value);
+            const p2 = parseFloat(document.getElementById('sim-p2').value);
+            const p3 = parseFloat(document.getElementById('sim-p3').value);
 
-            const lesson = lessonsData[module][lessonId];
-            if (lesson) {
-                display.innerHTML = `
-                    <h3 class="font-heading font-bold text-xl text-slate-900 mb-4 pb-2 border-b border-slate-100">${lesson.title}</h3>
-                    <div class="prose prose-slate max-w-none">
-                        ${lesson.content}
-                    </div>
-                `;
-            }
-        }
+            document.getElementById('val-p1').innerText = p1.toFixed(1);
+            document.getElementById('val-p2').innerText = p2.toFixed(1);
+            document.getElementById('val-p3').innerText = p3.toFixed(1);
 
-        // Simular promedio en Excel
-        function calculateAverage() {
-            const g1 = parseFloat(document.getElementById('grade1').value) || 0;
-            const g2 = parseFloat(document.getElementById('grade2').value) || 0;
-            const g3 = parseFloat(document.getElementById('grade3').value) || 0;
+            document.getElementById('txt-p1').innerText = p1;
+            document.getElementById('txt-p2').innerText = p2;
+            document.getElementById('txt-p3').innerText = p3;
 
-            const avg = (g1 + g2 + g3) / 3;
-            document.getElementById('average-result').innerText = avg.toFixed(1);
-        }
+            const avg = (p1 + p2 + p3) / 3;
+            document.getElementById('txt-avg').innerText = avg.toFixed(1);
 
-        // Cargar Quiz Interactivo
-        function renderQuiz() {
-            const container = document.getElementById('quiz-container');
-            if(!container) return;
+            const w1 = p1 * 0.4;
+            const w2 = p2 * 0.4;
+            const w3 = p3 * 0.2;
 
-            container.innerHTML = '';
-            score = 0;
-            document.getElementById('quiz-score').innerText = 'Puntos: 0';
+            document.getElementById('txt-w1').innerText = w1.toFixed(1);
+            document.getElementById('txt-w2').innerText = w2.toFixed(1);
+            document.getElementById('txt-w3').innerText = w3.toFixed(1);
 
-            quizQuestions.forEach((q, idx) => {
-                const qCard = document.createElement('div');
-                qCard.className = 'p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-3';
-                
-                let optionsHTML = '';
-                q.options.forEach((opt, optIdx) => {
-                    optionsHTML += `
-                        <label class="flex items-start gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 cursor-pointer text-sm font-medium text-slate-700 transition">
-                            <input type="radio" name="question-${idx}" value="${optIdx}" onchange="checkAnswer(${idx}, ${optIdx})" class="mt-0.5 text-blue-600 focus:ring-blue-500">
-                            <span>${opt}</span>
-                        </label>
-                    `;
-                });
+            const finalScore = w1 + w2 + w3;
+            const scoreFormatted = finalScore.toFixed(1);
 
-                qCard.innerHTML = `
-                    <p class="font-bold text-slate-800 text-sm">${idx + 1}. ${q.q}</p>
-                    <div class="space-y-2" id="options-group-${idx}">
-                        ${optionsHTML}
-                    </div>
-                    <p id="feedback-${idx}" class="text-xs font-bold hidden"></p>
-                `;
+            document.getElementById('txt-final').innerText = scoreFormatted;
+            const scoreEl = document.getElementById('final-score');
+            scoreEl.innerText = scoreFormatted;
 
-                container.appendChild(qCard);
-            });
-        }
+            const badge = document.getElementById('status-badge');
 
-        // Evaluar respuesta del Quiz
-        function checkAnswer(qIdx, selectedOpt) {
-            const question = quizQuestions[qIdx];
-            const feedback = document.getElementById(`feedback-${qIdx}`);
-            const optionsGroup = document.getElementById(`options-group-${qIdx}`);
-
-            if(!feedback || !optionsGroup) return;
-
-            // Deshabilitar respuestas de esta pregunta
-            const inputs = optionsGroup.querySelectorAll('input');
-            inputs.forEach(input => input.disabled = true);
-
-            if(selectedOpt === question.correct) {
-                score += 10;
-                feedback.innerText = '✨ ¡Correcto! Buen trabajo.';
-                feedback.className = 'text-xs font-bold text-emerald-600 mt-2 block';
+            if (finalScore >= 6.0) {
+                badge.innerText = "¡APROBADO!";
+                badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+                scoreEl.className = "text-4xl font-extrabold text-emerald-400 my-1";
             } else {
-                feedback.innerText = `❌ Ups, la opción correcta era: "${question.options[question.correct]}"`;
-                feedback.className = 'text-xs font-bold text-rose-600 mt-2 block';
+                badge.innerText = "REPROBADO (EXTRAORDINARIO)";
+                badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30";
+                scoreEl.className = "text-4xl font-extrabold text-rose-400 my-1";
             }
-
-            document.getElementById('quiz-score').innerText = `Puntos: ${score} / ${quizQuestions.length * 10}`;
         }
 
-        // Inicialización al cargar página
+        function resetGradeSim() {
+            document.getElementById('sim-p1').value = 8;
+            document.getElementById('sim-p2').value = 9;
+            document.getElementById('sim-p3').value = 7;
+            calcGrades();
+        }
+
+        // Quiz Evaluation Logic
+        const correctAnswers = {
+            q1: 'b',
+            q2: 'a',
+            q3: 'b',
+            q4: 'a',
+            q5: 'b',
+            q6: 'b'
+        };
+
+        function evaluateQuiz() {
+            const form = document.getElementById('quiz-form');
+            let score = 0;
+            let total = Object.keys(correctAnswers).length;
+
+            for (let q in correctAnswers) {
+                const selected = form.querySelector(`input[name="${q}"]:checked`);
+                if (selected && selected.value === correctAnswers[q]) {
+                    score++;
+                }
+            }
+
+            document.getElementById('current-score').innerText = score;
+            const resultsBox = document.getElementById('quiz-results');
+            const title = document.getElementById('quiz-results-title');
+            const msg = document.getElementById('quiz-results-msg');
+
+            resultsBox.classList.remove('hidden');
+
+            if (score === total) {
+                resultsBox.className = "p-5 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-900 space-y-1 block";
+                title.innerText = "¡Puntaje Perfecto! (6/6)";
+                msg.innerText = "¡Felicidades! Tienes dominados los conceptos fundamentales de computación para preparatoria.";
+            } else if (score >= 4) {
+                resultsBox.className = "p-5 rounded-xl border bg-amber-50 border-amber-200 text-amber-900 space-y-1 block";
+                title.innerText = `Buen Resultado: ${score} de ${total}`;
+                msg.innerText = "Demuestras buen conocimiento general, pero vale la pena repasar los módulos donde fallaste.";
+            } else {
+                resultsBox.className = "p-5 rounded-xl border bg-rose-50 border-rose-200 text-rose-900 space-y-1 block";
+                title.innerText = `Necesitas Repasar: ${score} de ${total}`;
+                msg.innerText = "Te recomendamos revisar con atención los módulos de Word, Excel y Seguridad antes de volver a intentarlo.";
+            }
+        }
+
+        function resetQuiz() {
+            document.getElementById('quiz-form').reset();
+            document.getElementById('current-score').innerText = "0";
+            document.getElementById('quiz-results').classList.add('hidden');
+        }
+
+        // Initialize defaults
         window.onload = function() {
-            switchTab('inicio');
-            renderQuiz();
+            calcGrades();
         };
     </script>
 </body>
