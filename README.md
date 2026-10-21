@@ -1,3 +1,4 @@
+[aprende_computaci_n_b_sica (1).html](https://github.com/user-attachments/files/33788323/aprende_computaci_n_b_sica.1.html)
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
