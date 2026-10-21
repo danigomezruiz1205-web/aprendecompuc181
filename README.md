@@ -76,7 +76,16 @@
                     <span class="w-3 h-3 rounded-full bg-orange-600"></span> PowerPoint
                 </button>
                 <button onclick="switchTab('seguridad')" id="nav-seguridad" class="tab-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition">
-                    <span class="w-3 h-3 rounded-full bg-purple-600"></span> Internet y Seguridad
+                    <span class="w-3 h-3 rounded-full bg-purple-600"></span> Internet
+                </button>
+                <button onclick="switchTab('soporte')" id="nav-soporte" class="tab-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition">
+                    🛠️ Soporte
+                </button>
+                <button onclick="switchTab('recursos')" id="nav-recursos" class="tab-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition">
+                    📦 Recursos
+                </button>
+                <button onclick="switchTab('faq')" id="nav-faq" class="tab-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition">
+                    ❓ FAQ
                 </button>
                 <button onclick="switchTab('practica')" id="nav-practica" class="tab-btn px-3 py-2 rounded-lg text-sm font-bold bg-amber-100 text-amber-900 hover:bg-amber-200 ml-auto sm:ml-2 transition">
                     ⚡ Ponte a Prueba
@@ -266,12 +275,198 @@
                 <div class="space-y-3">
                     <p class="font-bold text-slate-700 text-sm uppercase tracking-wider">Lecciones de Seguridad</p>
                     <button onclick="loadLesson('seguridad', 1)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-purple-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-purple-500">1. Cómo filtrar búsquedas en Google</button>
-                    <button onclick="loadLesson('seguridad', 2)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-purple-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-purple-500">3. Identificar Phishing e hilos falsos</button>
-                    <button onclick="loadLesson('seguridad', 3)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-purple-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-purple-500">2. Contraseñas fuertes y memorables</button>
+                    <button onclick="loadLesson('seguridad', 2)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-purple-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-purple-500">2. Identificar Phishing e hilos falsos</button>
+                    <button onclick="loadLesson('seguridad', 3)" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:border-purple-500 font-medium text-slate-800 text-sm transition focus:outline-none focus:ring-2 focus:ring-purple-500">3. Contraseñas fuertes y memorables</button>
                 </div>
 
                 <div class="md:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm min-h-[300px]" id="seguridad-lesson-display">
                     <!-- Se llena con JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA: SOPORTE TÉCNICO Y ERRORES COMUNES -->
+        <section id="view-soporte" class="view-content hidden space-y-6">
+            <div class="bg-rose-50 border border-rose-200 rounded-2xl p-6">
+                <div class="flex items-center gap-3">
+                    <span class="bg-rose-600 text-white font-bold text-xl px-3 py-1 rounded-lg">🛠️</span>
+                    <div>
+                        <h2 class="font-heading text-2xl font-bold text-rose-900">Soporte Técnico & Errores Comunes</h2>
+                        <p class="text-rose-700 text-sm">¿Se congeló el programa o no calcula tus datos? Aquí está la solución rápida.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <div class="flex items-center gap-2 text-rose-600 font-bold">
+                        <span>⚠️</span> Word o Excel dice "Modo de solo lectura" o "Uso no comercial"
+                    </div>
+                    <p class="text-sm text-slate-600">Esto pasa cuando abres un archivo directo desde un correo o USB sin extraerlo, o si la licencia venció. Para solucionarlo:</p>
+                    <ul class="list-disc list-inside text-xs text-slate-700 space-y-1 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                        <li>Haz clic en <strong>Habilitar edición</strong> en la barra amarilla superior.</li>
+                        <li>Guarda una copia nueva en tu computadora con <strong>Archivo &rarr; Guardar como</strong> en la carpeta <i>Documentos</i>.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <div class="flex items-center gap-2 text-rose-600 font-bold">
+                        <span>⚠️</span> Excel muestra #¡VALOR!, #¿NOMBRE? o no calcula las fórmulas
+                    </div>
+                    <p class="text-sm text-slate-600">Suele ocurrir por tres razones simples:</p>
+                    <ul class="list-disc list-inside text-xs text-slate-700 space-y-1 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                        <li><strong>#¡VALOR!:</strong> Intentaste sumar una celda que contiene letras o un espacio invisible.</li>
+                        <li><strong>#¿NOMBRE?:</strong> Escribiste mal la fórmula (ej. puse <code>PROMEDO</code> en lugar de <code>PROMEDIO</code>).</li>
+                        <li><strong>No calcula automáticamente:</strong> Ve a la pestaña <i>Fórmulas &rarr; Opciones de cálculo</i> y asegúrate de que esté marcado en <strong>Automático</strong>.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <div class="flex items-center gap-2 text-rose-600 font-bold">
+                        <span>⚠️</span> Se cerró el programa y no guardé mi tarea
+                    </div>
+                    <p class="text-sm text-slate-600">No entren en pánico, Office guarda respaldos automáticos en segundo plano:</p>
+                    <ul class="list-disc list-inside text-xs text-slate-700 space-y-1 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                        <li>Abre Word/Excel de nuevo y busca la barra lateral izquierda <strong>"Recuperados"</strong>.</li>
+                        <li>Si no sale, ve a <i>Archivo &rarr; Información &rarr; Administrar documento &rarr; Recuperar documentos no guardados</i>.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <div class="flex items-center gap-2 text-rose-600 font-bold">
+                        <span>⚠️</span> PowerPoint no reproduce el audio o video en la computadora del salón
+                    </div>
+                    <p class="text-sm text-slate-600">Pasa seguido cuando vinculas un archivo multimedia desde tu memoria USB y luego cambias de computadora.</p>
+                    <ul class="list-disc list-inside text-xs text-slate-700 space-y-1 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                        <li>Incrusta el video insertándolo directamente desde <i>Insertar &rarr; Video &rarr; Este dispositivo</i>.</li>
+                        <li>Antes de exponer, ve a <i>Archivo &rarr; Información &rarr; Optimizar la compatibilidad del archivo multimedia</i>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA: RECURSOS Y DESCARGAS -->
+        <section id="view-recursos" class="view-content hidden space-y-6">
+            <div class="bg-teal-50 border border-teal-200 rounded-2xl p-6">
+                <div class="flex items-center gap-3">
+                    <span class="bg-teal-600 text-white font-bold text-xl px-3 py-1 rounded-lg">📦</span>
+                    <div>
+                        <h2 class="font-heading text-2xl font-bold text-teal-900">Recursos y Herramientas Útiles</h2>
+                        <p class="text-teal-700 text-sm">Sitios web y herramientas gratuitas que te harán la vida más fácil en la prepa.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Plantillas -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center font-bold text-lg">🎨</div>
+                    <h3 class="font-heading font-bold text-lg text-slate-900">Plantillas para PowerPoint</h3>
+                    <p class="text-xs text-slate-600">Sustituye los diseños predeterminados aburridos por diapositivas modernas.</p>
+                    <ul class="space-y-2 text-xs">
+                        <li class="p-2 bg-slate-50 rounded border border-slate-100 flex justify-between items-center">
+                            <span class="font-bold text-slate-700">Slidesgo</span>
+                            <span class="text-teal-600 font-semibold">Gratis</span>
+                        </li>
+                        <li class="p-2 bg-slate-50 rounded border border-slate-100 flex justify-between items-center">
+                            <span class="font-bold text-slate-700">SlidesCarnival</span>
+                            <span class="text-teal-600 font-semibold">Gratis</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Imágenes Libres -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-lg">🖼️</div>
+                    <h3 class="font-heading font-bold text-lg text-slate-900">Fotos de Alta Calidad</h3>
+                    <p class="text-xs text-slate-600">Bancos de imágenes sin marcas de agua ni píxeles borrosos para portadas o presentaciones.</p>
+                    <ul class="space-y-2 text-xs">
+                        <li class="p-2 bg-slate-50 rounded border border-slate-100 flex justify-between items-center">
+                            <span class="font-bold text-slate-700">Unsplash</span>
+                            <span class="text-teal-600 font-semibold">Sin copyright</span>
+                        </li>
+                        <li class="p-2 bg-slate-50 rounded border border-slate-100 flex justify-between items-center">
+                            <span class="font-bold text-slate-700">Pexels</span>
+                            <span class="text-teal-600 font-semibold">Fotos + Video</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Herramientas PDF -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center font-bold text-lg">📄</div>
+                    <h3 class="font-heading font-bold text-lg text-slate-900">Conversión de PDF</h3>
+                    <p class="text-xs text-slate-600">Unir varios documentos, reducir el peso del archivo o convertir imagenes a PDF.</p>
+                    <ul class="space-y-2 text-xs">
+                        <li class="p-2 bg-slate-50 rounded border border-slate-100 flex justify-between items-center">
+                            <span class="font-bold text-slate-700">ILovePDF</span>
+                            <span class="text-teal-600 font-semibold">Web recomendada</span>
+                        </li>
+                        <li class="p-2 bg-slate-50 rounded border border-slate-100 flex justify-between items-center">
+                            <span class="font-bold text-slate-700">Smallpdf</span>
+                            <span class="text-teal-600 font-semibold">Unir y comprimir</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Hoja de atajos para imprimir -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="font-heading font-bold text-lg text-slate-900 mb-3 flex items-center gap-2">
+                    <span>🖨️</span> Chuleta de Atajos de Teclado (Para memorizar)
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-center text-xs">
+                    <div class="p-2 bg-slate-50 rounded border border-slate-200"><span class="shortcut-key">Ctrl+A</span> Seleccionar todo</div>
+                    <div class="p-2 bg-slate-50 rounded border border-slate-200"><span class="shortcut-key">Ctrl+P</span> Imprimir</div>
+                    <div class="p-2 bg-slate-50 rounded border border-slate-200"><span class="shortcut-key">Ctrl+N</span> Letra Negrita</div>
+                    <div class="p-2 bg-slate-50 rounded border border-slate-200"><span class="shortcut-key">Ctrl+K</span> Letra Cursiva</div>
+                    <div class="p-2 bg-slate-50 rounded border border-slate-200"><span class="shortcut-key">F5</span> Iniciar PowerPoint</div>
+                    <div class="p-2 bg-slate-50 rounded border border-slate-200"><span class="shortcut-key">Alt+Tab</span> Cambiar de ventana</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA: PREGUNTAS FRECUENTES (FAQ) -->
+        <section id="view-faq" class="view-content hidden space-y-6">
+            <div class="bg-sky-50 border border-sky-200 rounded-2xl p-6">
+                <div class="flex items-center gap-3">
+                    <span class="bg-sky-600 text-white font-bold text-xl px-3 py-1 rounded-lg">❓</span>
+                    <div>
+                        <h2 class="font-heading text-2xl font-bold text-sky-900">Preguntas Frecuentes (FAQ)</h2>
+                        <p class="text-sky-700 text-sm">Respuestas claras a dudas comunes que salen durante el ciclo escolar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-heading font-bold text-base text-slate-900 mb-1">1. ¿Qué diferencia hay entre Microsoft Office, Google Docs y LibreOffice?</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        <strong>Microsoft Office (Word, Excel, PPT)</strong> es el estándar de la industria y el más completo. 
+                        <strong>Google Docs/Sheets</strong> funciona directo en internet sin instalar nada y sirve perfecto para trabajos en equipo al mismo tiempo. 
+                        <strong>LibreOffice</strong> es una alternativa 100% gratuita que puedes instalar en tu computadora si no tienes licencia de Office.
+                    </p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-heading font-bold text-base text-slate-900 mb-1">2. ¿Cómo obtengo Microsoft Office gratis si soy estudiante?</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Casi todas las escuelas y preparatorias públicas o privadas proveen un correo institucional (terminación <code>.edu</code> o la clave de tu escuela). Con ese correo puedes entrar en <span class="font-semibold text-blue-700">office.com</span> y descargar la paquetería completa de Microsoft 365 sin pagar nada durante el tiempo que curses tu bachillerato.
+                    </p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-heading font-bold text-base text-slate-900 mb-1">3. ¿Qué formato debo usar para mandar mis tareas: .docx o .pdf?</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        <strong>Envía en PDF</strong> si el trabajo ya está terminado y es la versión final (ensayos, reportes, investigaciones). Esto asegura que la letra, imágenes y párrafos no se desacomoden. Usa <strong>.docx</strong> solo cuando el profesor vaya a revisar un borrador o necesite agregar comentarios y ediciones directamente sobre el documento.
+                    </p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-heading font-bold text-base text-slate-900 mb-1">4. ¿Cómo debo subir mis tareas a plataformas como Teams o Classroom?</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Siempre revisa el nombre del archivo antes de subirlo. Un buen hábito para evitar confusiones es nombrarlo así: <code>Materia_Nombre_Apellido_Tarea1.pdf</code> (ejemplo: <i>Biologia_Juan_Perez_Practica1.pdf</i>). Nunca lo dejes con nombres genéricos como <i>Documento1.pdf</i>.
+                    </p>
                 </div>
             </div>
         </section>
